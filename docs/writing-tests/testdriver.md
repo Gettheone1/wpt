@@ -223,33 +223,45 @@ derived from that element, and must match any explicitly set
 context. Using elements in multiple contexts in a single action chain
 is not supported.
 
+## BiDi
 
-### BiDi ###
+This API provides access to the
+[WebDriver BiDi](https://w3c.github.io/webdriver-bidi\>) protocol.
 
-Represents [WebDriver BiDi](https://w3c.github.io/webdriver-bidi>) protocol.
+### Context
 
-<!-- sphinx-js doesn't support documenting types so we have to copy in the Context
-documentation by hand -->
+A WebDriver BiDi "browsing context" is equivalent to an
+[HTML navigable](https://html.spec.whatwg.org/multipage/document-sequences.html#navigable).
+It represents a tab, window, or frame within the browser.
+
+In this API, a browsing context can be referenced by its unique ID (a string) or by a
+`WindowProxy` object.
 
 ```eval_rst
-:Context: (*String|Window*) Represents a browsing context either with the browsing
-          context id equals to the given string value, or one with the given Window
-          object.
+:Context: (*String|WindowProxy*)  A browsing context. Can be specified by its ID 
+          (a string) or using a `WindowProxy` object.
 ```
 
+### Events
 
-#### Log ####
+To receive WebDriver BiDi [events](https://w3c.github.io/webdriver-bidi/#events), you
+need to subscribe to them. Events are only emitted for browsing contexts with an
+active subscription. You can also create a global subscription to receive events from
+all the contexts.
 
-Represents WebDriver BiDi [Log](https://w3c.github.io/webdriver-bidi/#module-log)
-module.
+### Log module
 
+This module corresponds to the WebDriver BiDi
+[Log](https://w3c.github.io/webdriver-bidi/#module-log) module and provides access to
+browser logs.
 
-##### Entry added #####
+#### Entry added
 
-Allows subscribing and listening to the
+This provides methods to subscribe to and listen for the
 [`log.entryAdded`](https://w3c.github.io/webdriver-bidi/#event-log-entryAdded) event.
 
-Example:
+**Example:**
+
 ```javascript
 await test_driver.bidi.log.entry_added.subscribe();
 const log_entry_promise = test_driver.bidi.log.entry_added.once();

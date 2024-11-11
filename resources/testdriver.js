@@ -54,9 +54,9 @@
          */
         bidi: {
             /**
-             * @typedef {(String|WindowProxy)} Context Represents a browsing context
-             * either with the browsing context id equals to the given string
-             * value, or one with the given Window object.
+             * @typedef {(String|WindowProxy)} Context A browsing context. Can
+             * be specified by its ID (a string) or using a `WindowProxy`
+             * object.
              */
 
             /**
@@ -68,7 +68,7 @@
                  */
                 entry_added: {
                     /**
-                     * Subscribes to the event. The events will be emitted only
+                     * Subscribes to the event. Events will be emitted only
                      * if `subscribe` is called.
                      *
                      * This method does not add actual listeners. To listen to
@@ -77,36 +77,36 @@
                      * @param {object} [params] Parameters for the subscription.
                      * @param {null|Array.<(Context)>} [params.contexts] An
                      * array of contexts to listen to the event on, or `null`
-                     * for subscription on all the browsing contexts.
+                     * for global subscription.
                      * @returns {Promise<void>} Resolves when the subscription is successful.
                      */
                     subscribe: async function (params = {}) {
                         return window.test_driver_internal.bidi.log.entry_added.subscribe(params);
                     },
                     /**
-                     * Add an event listener for the event.
-                     * @param callback {function(event): void} The callback
+                     * Adds an event listener for the event.
+                     *
+                     * @param {function(event): void} callback The callback
                      * to be called when the event is emitted. The callback is
                      * called with the event object as a parameter.
-                     * @returns {function(): void} A function for removing the
-                     * listener.
+                     * @returns {function(): void} A function that removes the added
+                     * event listener when called.
                      */
                     on: function (callback) {
                         return window.test_driver_internal.bidi.log.entry_added.on(callback);
                     },
                     /**
-                     * Add an event listener for the event that is only called
+                     * Adds an event listener for the event that is only called
                      * once and removed afterward.
-                     * @param callback {function(event): void} The callback to
-                     * be called when the event is fired.
+                     *
                      * @return {Promise<Event>} The promise which is resolved
-                     * with the Event object when the event is emitted.
+                     * with the event object when the event is emitted.
                      */
                     once: function () {
                         return new Promise(resolve => {
                             const remove_handler = window.test_driver_internal.bidi.log.entry_added.on(
-                                data => {
-                                    resolve(data);
+                                event => {
+                                    resolve(event);
                                     remove_handler();
                                 });
                         });
