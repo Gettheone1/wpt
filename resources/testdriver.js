@@ -63,22 +63,28 @@
              * `log <https://w3c.github.io/webdriver-bidi/#module-log>`_ module.
              */
             log: {
-                /**
-                 * `log.entryAdded <https://w3c.github.io/webdriver-bidi/#event-log-entryAdded>`_ event.
-                 */
                 entry_added: {
                     /**
-                     * Subscribes to the event. Events will be emitted only
-                     * if `subscribe` is called.
-                     *
-                     * This method does not add actual listeners. To listen to
-                     * the event, use the `on` or `once` methods.
+                     * @typedef {object} LogEntryAdded `log.entryAdded <https://w3c.github.io/webdriver-bidi/#event-log-entryAdded>`_ event.
+                     */
+
+                    /**
+                     * Subscribes to the event. Events will be emitted only if
+                     * there is a subscription for the event. This method does
+                     * not add actual listeners. To listen to the event, use the
+                     * `on` or `once` methods. The buffered events will be
+                     * emitted before the command promise is resolved.
                      *
                      * @param {object} [params] Parameters for the subscription.
-                     * @param {null|Array.<(Context)>} [params.contexts] An
-                     * array of contexts to listen to the event on, or `null`
-                     * for global subscription.
-                     * @returns {Promise<void>} Resolves when the subscription is successful.
+                     * @param {null|Array.<(Context)>} [params.contexts] The
+                     * optional contexts parameter specifies which browsing
+                     * contexts to subscribe to the event on. It should be
+                     * either an array of Context objects, or null. If null, the
+                     * event will be subscribed to globally. If omitted, the
+                     * event will be subscribed to on the current browsing
+                     * context.
+                     * @returns {Promise<void>} Resolves when the subscription
+                     * is successfully done.
                      */
                     subscribe: async function (params = {}) {
                         return window.test_driver_internal.bidi.log.entry_added.subscribe(params);
@@ -86,11 +92,11 @@
                     /**
                      * Adds an event listener for the event.
                      *
-                     * @param {function(event): void} callback The callback
-                     * to be called when the event is emitted. The callback is
-                     * called with the event object as a parameter.
-                     * @returns {function(): void} A function that removes the added
-                     * event listener when called.
+                     * @param {function(LogEntryAdded): void} callback The
+                     * callback to be called when the event is emitted. The
+                     * callback is called with the event object as a parameter.
+                     * @returns {function(): void} A function that removes the
+                     * added event listener when called.
                      */
                     on: function (callback) {
                         return window.test_driver_internal.bidi.log.entry_added.on(callback);
@@ -99,7 +105,7 @@
                      * Adds an event listener for the event that is only called
                      * once and removed afterward.
                      *
-                     * @return {Promise<Event>} The promise which is resolved
+                     * @return {Promise<LogEntryAdded>} The promise which is resolved
                      * with the event object when the event is emitted.
                      */
                     once: function () {

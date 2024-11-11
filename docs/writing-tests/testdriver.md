@@ -225,17 +225,16 @@ is not supported.
 
 ## BiDi
 
-This API provides access to the
+The api in `test_driver.bidi` provides access to the
 [WebDriver BiDi](https://w3c.github.io/webdriver-bidi\>) protocol.
 
 ### Context
 
 A WebDriver BiDi "browsing context" is equivalent to an
 [HTML navigable](https://html.spec.whatwg.org/multipage/document-sequences.html#navigable).
-It represents a tab, window, or frame within the browser.
-
-In this API, a browsing context can be referenced by its unique ID (a string) or by a
-`WindowProxy` object.
+In WebDriver BiDi, you can interact with any browsing context, regardless of whether
+it's currently active. You can target a specific browsing context using either its
+unique string ID or its `WindowProxy` object.
 
 ```eval_rst
 :Context: (*String|WindowProxy*)  A browsing context. Can be specified by its ID 
@@ -249,7 +248,13 @@ need to subscribe to them. Events are only emitted for browsing contexts with an
 active subscription. You can also create a global subscription to receive events from
 all the contexts.
 
-### Log module
+#### Events Buffer ####
+
+If there are
+[buffered events](https://w3c.github.io/webdriver-bidi/#log-event-buffer), they will
+be emitted before the `subcsribe` command's promise is resolved.
+
+### Log Module
 
 This module corresponds to the WebDriver BiDi
 [Log](https://w3c.github.io/webdriver-bidi/#module-log) module and provides access to
