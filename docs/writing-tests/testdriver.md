@@ -30,7 +30,7 @@ document when using testdriver from a different context):
 ## WebDriver BiDi ##
 
 The api in `test_driver.bidi` provides access to the
-[WebDriver BiDi](https://w3c.github.io/webdriver-bidi\>) protocol.
+[WebDriver BiDi](https://w3c.github.io/webdriver-bidi) protocol.
 
 ### Context ###
 
