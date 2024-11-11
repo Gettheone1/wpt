@@ -237,7 +237,7 @@ it's currently active. You can target a specific browsing context using either i
 unique string ID or its `WindowProxy` object.
 
 ```eval_rst
-:Context: (*String|WindowProxy*)  A browsing context. Can be specified by its ID 
+:Context: (*String|WindowProxy*)  A browsing context. Can be specified by its ID
           (a string) or using a `WindowProxy` object.
 ```
 
